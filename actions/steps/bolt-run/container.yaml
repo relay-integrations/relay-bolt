@@ -1,0 +1,9 @@
+apiVersion: container/v1
+kind: StepContainer
+title: Run a Bolt task or plan
+images:
+  base:
+    template: Dockerfile.tpl
+description: >
+  This step container runs a Bolt task or plan against a set of given nodes or
+  inventory data.

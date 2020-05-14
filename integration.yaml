@@ -1,0 +1,48 @@
+# The schema version. Required. Must be exactly the string "integration/v1".
+apiVersion: integration/v1
+
+# The schema kind. Required. Must be exactly the string "Integration".
+kind: Integration
+
+# The integration slug. Required.
+name: puppet-bolt
+
+# The release channel for this integration. One of alpha, beta, rc or stable.
+# Optional. Defaults to stable.
+channel: stable
+
+# The version of the integration. Required. This is an arbitrary text string
+# used to identify the bundle of actions for this release. Using dates or
+# incrementing integers is recommended. Each version replaces the one before it
+# on the specified release channel.
+#
+# As a convenience, this information may come from another text file or from a
+# Git tag (if applicable). We may add additional sources in the future.
+version: v20200408
+
+# The shortest possible accurate description of this integration. Required. May
+# just be the name of the service.
+summary: Bolt
+
+# A paragraph or two describing what this integration does. Optional. Markdown.
+description: |
+    Integration with Puppet Bolt
+
+# License information. Optional. If not specified, this integration is assumed
+# to be unlicensed proprietary code. Otherwise, must be a valid SPDX License
+# Expression (similar to npm) or an object referencing a license file.
+license: Apache-2.0
+
+# Owner of this integration. Required, but may be optional in the future if it
+# can be inferred from the provider of the integration.
+owner:
+  name: Puppet, Inc.
+  email: relay@puppet.com
+  url: https://puppet.com
+
+# URL to this integration's Website. Optional.
+homepage: https://github.com/relay-integrations/puppet-bolt
+
+# URL to this integration's source code. Optional. If the homepage is a GitHub
+# link, may be inferred automatically.
+source: git://github.com/relay-integrations/puppet-bolt.git
