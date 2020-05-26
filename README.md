@@ -2,17 +2,13 @@
 
 Integration with Bolt for Puppet Relay.
 
-## External requirements
+## Steps Available
 
-_TBD_
+### Actions
 
-## Getting started
-
-_TBD_
-
-## Examples
-
-_TBD_
+| Name | Use it to... | Registry address | Documentation |
+| ---  | ------------ | ---------------- | ------------- |
+| bolt-run | This step container runs a Bolt task or plan against a set of given nodes or inventory data. | projectnebula/bolt-run | [v1 docs](https://github.com/relay-integrations/relay-puppet-bolt/blob/master/actions/steps/bolt-run/docs/v1.md) |
 
 ## Contributing
 
