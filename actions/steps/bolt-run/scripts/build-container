@@ -38,9 +38,9 @@ done
 shift $(( OPTIND - 1 ))
 
 
-$DOCKER $DOCKER_ARGS build $DOCKER_BUILD_ARGS --tag sdk.nebula.localhost/intermediate/c6b358b134fa/bolt-run --file Dockerfile .
+$DOCKER $DOCKER_ARGS build $DOCKER_BUILD_ARGS --tag sdk.nebula.localhost/intermediate/010343a500bd/puppet-bolt-step-bolt-run --file Dockerfile .
 
 for TAG in ${TAGS[@]+"${TAGS[@]}"}; do
-  $DOCKER $DOCKER_ARGS tag sdk.nebula.localhost/intermediate/c6b358b134fa/bolt-run "projectnebula/bolt-run:${TAG}" && \
-    printf "# Tagged %s:%s\n" projectnebula/bolt-run "${TAG}"
+  $DOCKER $DOCKER_ARGS tag sdk.nebula.localhost/intermediate/010343a500bd/puppet-bolt-step-bolt-run "relaysh/puppet-bolt-step-bolt-run:${TAG}" && \
+    printf "# Tagged %s:%s\n" relaysh/puppet-bolt-step-bolt-run "${TAG}"
 done

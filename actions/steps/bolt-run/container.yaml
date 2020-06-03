@@ -1,5 +1,6 @@
 apiVersion: container/v1
 kind: StepContainer
+name: puppet-bolt-step-bolt-run
 title: Run a Bolt task or plan
 images:
   base:
