@@ -26,7 +26,7 @@ summary: Bolt
 
 # A paragraph or two describing what this integration does. Optional. Markdown.
 description: |
-    Integration with Puppet Bolt
+    Bolt is an open source orchestration tool that automates the manual work it takes to maintain your infrastructure.
 
 # License information. Optional. If not specified, this integration is assumed
 # to be unlicensed proprietary code. Otherwise, must be a valid SPDX License
@@ -46,3 +46,6 @@ homepage: https://github.com/relay-integrations/relay-bolt
 # URL to this integration's source code. Optional. If the homepage is a GitHub
 # link, may be inferred automatically.
 source: git://github.com/relay-integrations/relay-bolt.git
+
+tags:
+  - configuration
