@@ -67,15 +67,8 @@
       }
     },
     "targets": {
-      "anyOf": [
-        {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        {
-          "type": "string"
-        }
-      ],
+      "type": ["string", "array"],
+      "items": { "type": "string" },
       "description": "The list of target nodes to connect to, either in the same format as Bolt expects (a comma-separated string), or as a list."
     },
     "credentials": {
