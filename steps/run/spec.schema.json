@@ -4,7 +4,8 @@
   "properties": {
     "type": {
       "type": "string",
-      "description": "The type of Bolt action to perform, one of `task` or `plan`."
+      "enum": ["task", "plan"],
+      "description": "The type of Bolt action to perform."
     },
     "name": {
       "type": "string",
@@ -13,9 +14,7 @@
     "parameters": {
       "type": "object",
       "description": "The task- or plan-specific parameter data to use for this run.",
-      "additionalProperties": {
-        "type": "string"
-      }
+      "additionalProperties": true
     },
     "projectDir": {
       "type": "string",
@@ -40,7 +39,8 @@
       "properties": {
         "type": {
           "type": "string",
-          "description": "The transport type, one of `ssh` or `winrm`"
+          "enum": ["ssh", "winrm"],
+          "description": "The transport type."
         },
         "user": {
           "type": "string",

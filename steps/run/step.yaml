@@ -1,6 +1,6 @@
 apiVersion: integration/v1
 kind: Step
-name: bolt-step-run
+name: run
 version: 3
 summary: Run
 description: |
