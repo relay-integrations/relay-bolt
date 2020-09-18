@@ -1,0 +1,17 @@
+apiVersion: integration/v1
+kind: Step
+name: run
+version: 3
+summary: Run
+description: |
+  This step performs a Bolt run.
+icon:
+build:
+  apiVersion: build/v1
+  kind: Docker
+publish:
+  repository: relaysh/bolt-step-run
+schemas:
+  spec:
+    source: file
+    file: spec.schema.json
