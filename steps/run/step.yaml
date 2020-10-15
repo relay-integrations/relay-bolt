@@ -15,3 +15,21 @@ schemas:
   spec:
     source: file
     file: spec.schema.json
+examples:
+- summary: Run a Task against a single target 
+  content:
+    apiVersion: v1 
+    kind: Step
+    name: bolt-run 
+    image: relaysh/bolt-step-run
+    spec:
+      type: task
+      name: !Parameter task_name
+      targets:
+      - !Parameter target_url
+      credentials:
+        id_rsa: !Secret id_rsa
+      transport:
+        type: ssh
+        user: !Parameter user 
+        privateKey: id_rsa
