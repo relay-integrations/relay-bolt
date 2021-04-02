@@ -2,9 +2,8 @@ apiVersion: integration/v1
 kind: Step
 name: run
 version: 3
-summary: Run Bolt
-description: |
-  This step performs a Bolt run.
+summary: Run
+description: Performs a Bolt run.
 icon:
 build:
   apiVersion: build/v1
