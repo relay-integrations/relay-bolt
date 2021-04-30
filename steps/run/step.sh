@@ -77,6 +77,9 @@ TRANSPORT_USER="$( $NI get -p '{ .transport.user }' )"
 TRANSPORT_PASSWORD="$( $NI get -p '{ .transport.password }' )"
 [ -n "${TRANSPORT_PASSWORD}" ] && BOLT_ARGS+=( "--password=${TRANSPORT_PASSWORD}" )
 
+TRANSPORT_RUN_AS="$( $NI get -p '{ .transport.run_as }' )"
+[ -n "${TRANSPORT_RUN_AS}" ] && BOLT_ARGS+=( "--run-as=${TRANSPORT_RUN_AS}" )
+
 case "${TRANSPORT_TYPE}" in
 ssh)
   TRANSPORT_PRIVATE_KEY="$( $NI get -p '{ .transport.privateKey }' )"

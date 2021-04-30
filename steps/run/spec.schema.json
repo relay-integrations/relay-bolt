@@ -54,6 +54,10 @@
           "type": "string",
           "description": "The name of a key in the `credentials` setting to use as the default SSH private key."
         },
+        "run_as": {
+          "type": "string",
+          "description": "The username to use to run the task/plan"
+        },
         "useSSL": {
           "type": "boolean",
           "description": "If using the WinRM transport, whether to use SSL to connect.",
