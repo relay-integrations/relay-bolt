@@ -118,6 +118,6 @@ if [[ "${INSTALL_MODULES}" == "true" ]]; then
 fi
 
 # Run Bolt!
-$BOLT \
-  "${BOLT_TYPE}" run "${BOLT_NAME}" \
-  "${BOLT_ARGS[@]}"
+BOLT_OUTPUT=$($BOLT "${BOLT_TYPE}" run "${BOLT_NAME}" "${BOLT_ARGS[@]}")
+
+$NI output set --key cliOutput --value "$BOLT_OUTPUT"
