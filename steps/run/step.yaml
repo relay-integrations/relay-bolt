@@ -11,6 +11,9 @@ build:
 publish:
   repository: relaysh/bolt-step-run
 schemas:
+  outputs:
+    source: file
+    file: outputs.schema.json
   spec:
     source: file
     file: spec.schema.json

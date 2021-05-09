@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "output": {
+      "type": "string",
+      "description": "Output from the Puppet Bolt CLI command"
+    }
+  },
+  "required": [
+    "output"
+  ],
+  "additionalProperties": false
+}

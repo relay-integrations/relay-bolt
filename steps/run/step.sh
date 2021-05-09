@@ -8,6 +8,8 @@ BOLT="${BOLT:-bolt}"
 JQ="${JQ:-jq}"
 NI="${NI:-ni}"
 
+echo "Using Puppet Bolt version: $($BOLT --version)"
+
 #
 # Variables
 #
@@ -31,6 +33,7 @@ BOLT_ARGS+=( --no-save-rerun )
 
 # Running in non-interactive mode, so do not request a TTY.
 BOLT_ARGS+=( --no-tty )
+BOLT_ARGS+=( "--format=json" )
 
 BOLT_TYPE="$( $NI get -p '{ .type }' )"
 case "${BOLT_TYPE}" in
@@ -59,7 +62,7 @@ if [ -n "$( $NI get -p '{ .git.repository }' )" ]; then
   BOLTDIR="${WORKDIR}/repo/$( $NI get -p '{ .git.name }' )${PROJECT_DIR+"/${PROJECT_DIR}"}"
   [ ! -d "${BOLTDIR}" ] && ni log fatal "Bolt project directory \"${BOLTDIR}\" does not exist"
 
-  BOLT_ARGS+=( "--boltdir=${BOLTDIR}" )
+  BOLT_ARGS+=( "--project=${BOLTDIR}" )
 elif [ -n "$( $NI get -p '{ .projectDir}' )" ]; then
   usage 'spec: only specify `projectDir` if you have specified a Git repository in `git`'
 fi
@@ -117,7 +120,9 @@ if [[ "${INSTALL_MODULES}" == "true" ]]; then
     $BOLT puppetfile install "${BOLT_ARGS[@]}"
 fi
 
+echo "Running command: $BOLT ${BOLT_TYPE} run ${BOLT_NAME} ${BOLT_ARGS[@]}"
+
 # Run Bolt!
-$BOLT \
-  "${BOLT_TYPE}" run "${BOLT_NAME}" \
-  "${BOLT_ARGS[@]}"
+BOLT_OUTPUT=$($BOLT "${BOLT_TYPE}" run "${BOLT_NAME}" "${BOLT_ARGS[@]}")
+
+$NI output set --key output --value "$BOLT_OUTPUT"
