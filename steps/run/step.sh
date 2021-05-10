@@ -125,4 +125,4 @@ echo "Running command: $BOLT ${BOLT_TYPE} run ${BOLT_NAME} ${BOLT_ARGS[@]}"
 # Run Bolt!
 BOLT_OUTPUT=$($BOLT "${BOLT_TYPE}" run "${BOLT_NAME}" "${BOLT_ARGS[@]}")
 
-$NI output set --key output --value "$BOLT_OUTPUT"
+$NI output set --key output --value "$BOLT_OUTPUT" --json
