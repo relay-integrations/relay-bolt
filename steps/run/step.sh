@@ -117,7 +117,7 @@ TARGETS="$( $NI get | $JQ -r 'try .targets | if type == "string" then . else joi
 
 INSTALL_MODULES="$( $NI get -p '{ .installModules }' )"
 if [[ "${INSTALL_MODULES}" == "true" ]]; then
-    $BOLT puppetfile install "${BOLT_ARGS[@]}"
+    $BOLT module install "${BOLT_ARGS[@]}"
 fi
 
 echo "Running command: $BOLT ${BOLT_TYPE} run ${BOLT_NAME} ${BOLT_ARGS[@]}"
