@@ -64,19 +64,6 @@ if [ -n "${GIT}" ]; then
   BOLT_ARGS+=( "--project=${BOLTDIR}" )
 fi
 
-
-# if [ -n "$( $NI get -p '{ .git.repository }' )" ]; then
-#   $NI git clone -d "${WORKDIR}/repo" || ni log fatal 'could not clone Git repository'
-
-#   PROJECT_DIR="$( $NI get -p '{ .projectDir }' )"
-#   BOLTDIR="${WORKDIR}/repo/$( $NI get -p '{ .git.name }' )${PROJECT_DIR+"/${PROJECT_DIR}"}"
-#   [ ! -d "${BOLTDIR}" ] && ni log fatal "Bolt project directory \"${BOLTDIR}\" does not exist"
-
-#   BOLT_ARGS+=( "--project=${BOLTDIR}" )
-# elif [ -n "$( $NI get -p '{ .projectDir}' )" ]; then
-#   usage 'spec: only specify `projectDir` if you have specified a Git repository in `git`'
-# fi
-
 MODULE_PATH="$( $NI get | $JQ -r 'try .modulePaths | join(":")' )"
 [ -n "${MODULE_PATH}" ] && BOLT_ARGS+=( "--modulepath=${MODULE_PATH}" )
 
