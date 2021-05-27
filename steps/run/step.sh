@@ -125,4 +125,10 @@ echo "Running command: $BOLT ${BOLT_TYPE} run ${BOLT_NAME} ${BOLT_ARGS[@]}"
 # Run Bolt!
 BOLT_OUTPUT=$($BOLT "${BOLT_TYPE}" run "${BOLT_NAME}" "${BOLT_ARGS[@]}")
 
+# Make the step fail if the Bolt command returns non-zero exit code
+if [[ $? -ne 0 ]]; then
+    echo "$BOLT_OUTPUT"
+    exit 1
+fi
+
 $NI output set --key output --value "$BOLT_OUTPUT" --json
