@@ -86,9 +86,16 @@
       "type": "object",
       "description": "A map of git configuration. If you're using HTTPS, only name and repository are required.",
       "properties": {
-        "ssh_key": {
-          "type": "string",
-          "description": "The SSH key to use when cloning the git repository. You can pass the key to Relay as a secret."
+        "connection": {
+          "type": "object",
+          "x-relay-connectionType": "ssh",
+          "description": "A Relay SSH connection to use",
+          "properties": {
+            "sshKey": {
+              "type": "string",
+              "description": "The SSH key to use when cloning the git repository."
+            }
+          }
         },
         "known_hosts": {
           "type": "string",
