@@ -1,9 +1,0 @@
-# This file contains the primary contributors for this step container. They take
-# responsibility for updating and maintaining the container definition and step
-# code.
-#
-# This file roughly follows the format of an OWNERS file
-# (https://github.com/bkeepers/OWNERS).
-
-# Nebula Community
-@puppetlabs/nebula-community

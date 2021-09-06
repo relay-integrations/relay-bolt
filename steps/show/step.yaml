@@ -1,0 +1,33 @@
+apiVersion: integration/v1
+kind: Step
+name: show
+version: 1
+summary: Show the available Bolt tasks or plans
+description: Shows the available Bolt tasks or plans.
+icon:
+build:
+  apiVersion: build/v1
+  kind: Docker
+publish:
+  repository: relaysh/bolt-step-show
+schemas:
+  spec:
+    source: file
+    file: spec.schema.json
+examples:
+- summary: Show the available Bolt tasks
+  content:
+    apiVersion: v1
+    kind: Step
+    name: bolt-task-show
+    image: relaysh/bolt-step-show
+    spec:
+      type: task
+- summary: Show the available Bolt plans
+  content:
+    apiVersion: v1
+    kind: Step
+    name: bolt-plan-show
+    image: relaysh/bolt-step-show
+    spec:
+      type: plan
