@@ -12,12 +12,7 @@
     },
     "name": {
       "type": "string",
-      "description": "The name of the Bolt task to plan to run."
-    },
-    "parameters": {
-      "type": "object",
-      "description": "The task- or plan-specific parameter data to use for this run.",
-      "additionalProperties": true
+      "description": "Specify a name to show a specific Bolt task or plan."
     },
     "projectDir": {
       "type": "string",
@@ -35,63 +30,6 @@
       "type": "boolean",
       "description": "Download and install modules listed in a `Puppetfile`.",
       "default": false
-    },
-    "transport": {
-      "type": "object",
-      "description": "The default transport to use when connecting to the target nodes.",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "ssh",
-            "winrm"
-          ],
-          "description": "The transport type."
-        },
-        "user": {
-          "type": "string",
-          "description": "The username to use to connect."
-        },
-        "password": {
-          "type": "string",
-          "description": "The password to use to connect."
-        },
-        "privateKey": {
-          "type": "string",
-          "description": "The name of a key in the `credentials` setting to use as the default SSH private key."
-        },
-        "run_as": {
-          "type": "string",
-          "description": "The username to use to run the task/plan"
-        },
-        "useSSL": {
-          "type": "boolean",
-          "description": "If using the WinRM transport, whether to use SSL to connect.",
-          "default": true
-        },
-        "verifyHost": {
-          "type": "boolean",
-          "description": "Whether to verify host integrity when connecting to remote nodes.",
-          "default": true
-        }
-      }
-    },
-    "targets": {
-      "type": [
-        "string",
-        "array"
-      ],
-      "items": {
-        "type": "string"
-      },
-      "description": "The list of target nodes to connect to, either in the same format as Bolt expects (a comma-separated string), or as a list."
-    },
-    "credentials": {
-      "type": "object",
-      "description": "A map of sensitive credential file names to content encoded using Base64.",
-      "additionalProperties": {
-        "type": "string"
-      }
     },
     "git": {
       "type": "object",

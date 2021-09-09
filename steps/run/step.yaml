@@ -2,7 +2,7 @@ apiVersion: integration/v1
 kind: Step
 name: run
 version: 3
-summary: Run
+summary: Runs a Bolt task or plan
 description: Performs a Bolt run.
 icon:
 build:
@@ -18,20 +18,20 @@ schemas:
     source: file
     file: spec.schema.json
 examples:
-- summary: Run a Task against a single target 
+- summary: Run a Bolt Task against a single target
   content:
-    apiVersion: v1 
+    apiVersion: v1
     kind: Step
-    name: bolt-run 
+    name: bolt-run
     image: relaysh/bolt-step-run
     spec:
       type: task
-      name: !Parameter task_name
+      name: ${parameters.taskName}
       targets:
-      - !Parameter target_url
+      - ${parameters.targetUrl}
       credentials:
-        id_rsa: !Secret id_rsa
+        sshKey: ${secrets.sshKey}
       transport:
         type: ssh
-        user: !Parameter user 
-        privateKey: id_rsa
+        user: ${parameters.user}
+        privateKey: sshKey

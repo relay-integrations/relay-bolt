@@ -28,13 +28,6 @@ $NI credentials config -d "${WORKDIR}/creds"
 
 declare -a BOLT_ARGS
 
-# Do not pollute our project directory with rerun info that we can't use.
-BOLT_ARGS+=( --no-save-rerun )
-
-# Running in non-interactive mode, so do not request a TTY.
-BOLT_ARGS+=( --no-tty )
-BOLT_ARGS+=( "--format=json" )
-
 BOLT_TYPE="$( $NI get -p '{ .type }' )"
 case "${BOLT_TYPE}" in
 task|plan)
@@ -50,10 +43,6 @@ esac
 BOLT_NAME="$( $NI get -p '{ .name }' )"
 [ -z "${BOLT_NAME}" ] && usage "spec: specify \`name\`, the name of the Bolt ${BOLT_TYPE} to run"
 
-# Parameter configuration
-PARAMS="$( $NI get | jq 'try .parameters // empty' )"
-[ -n "${PARAMS}" ] && BOLT_ARGS+=( "--params=${PARAMS}" )
-
 # Boltdir configuration
 GIT=$(ni get -p {.git})
 if [ -n "${GIT}" ]; then
@@ -64,8 +53,32 @@ if [ -n "${GIT}" ]; then
   BOLT_ARGS+=( "--project=${BOLTDIR}" )
 fi
 
+INSTALL_MODULES="$( $NI get -p '{ .installModules }' )"
+if [[ "${INSTALL_MODULES}" == "true" ]]; then
+    $BOLT module install "${BOLT_ARGS[@]}"
+fi
+
 MODULE_PATH="$( $NI get | $JQ -r 'try .modulePaths | join(":")' )"
 [ -n "${MODULE_PATH}" ] && BOLT_ARGS+=( "--modulepath=${MODULE_PATH}" )
+
+# Do not pollute our project directory with rerun info that we can't use.
+BOLT_ARGS+=( --no-save-rerun )
+
+# Running in non-interactive mode, so do not request a TTY.
+BOLT_ARGS+=( --no-tty )
+
+declare -a NI_OUTPUT_ARGS
+FORMAT="$( $NI get -p '{ .format }' )"
+if [ -n "${FORMAT}" ]; then
+  BOLT_ARGS+=( "--format=${FORMAT}" )
+else
+  BOLT_ARGS+=( "--format=json" )
+  NI_OUTPUT_ARGS+=( "--json" )
+fi
+
+# Parameter configuration
+PARAMS="$( $NI get | jq 'try .parameters // empty' )"
+[ -n "${PARAMS}" ] && BOLT_ARGS+=( "--params=${PARAMS}" )
 
 # Transport configuration
 TRANSPORT_TYPE="$( $NI get -p '{ .transport.type }' )"
@@ -112,11 +125,6 @@ esac
 TARGETS="$( $NI get | $JQ -r 'try .targets | if type == "string" then . else join(",") end' )"
 [ -n "${TARGETS}" ] && BOLT_ARGS+=( "--targets=${TARGETS}" )
 
-INSTALL_MODULES="$( $NI get -p '{ .installModules }' )"
-if [[ "${INSTALL_MODULES}" == "true" ]]; then
-    $BOLT module install "${BOLT_ARGS[@]}"
-fi
-
 echo "Running command: $BOLT ${BOLT_TYPE} run ${BOLT_NAME} ${BOLT_ARGS[@]}"
 
 # Run Bolt!
@@ -128,4 +136,4 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
-$NI output set --key output --value "$BOLT_OUTPUT" --json
+$NI output set --key output --value "$BOLT_OUTPUT" "${NI_OUTPUT_ARGS[@]}"

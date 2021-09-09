@@ -18,6 +18,6 @@ COPY ./step.sh /relay/step.sh
 ENTRYPOINT []
 CMD ["/bin/bash", "/relay/step.sh"]
 
-LABEL "org.opencontainers.image.title"="Run a Bolt task or plan"
-LABEL "org.opencontainers.image.description"="This step container runs a Bolt task or plan against a set of given nodes or inventory data."
+LABEL "org.opencontainers.image.title"="Show the available Bolt tasks or plans"
+LABEL "org.opencontainers.image.description"="Shows the available Bolt tasks or plans."
 LABEL "com.puppet.nebula.sdk.version"="v1"
