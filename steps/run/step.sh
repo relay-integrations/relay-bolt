@@ -30,7 +30,7 @@ declare -a BOLT_ARGS
 
 BOLT_TYPE="$( $NI get -p '{ .type }' )"
 case "${BOLT_TYPE}" in
-task|plan)
+task|plan|command|script|apply)
   ;;
 '')
   usage 'spec: specify `type`, one of "task" or "plan", the type of Bolt run to perform'
@@ -125,10 +125,17 @@ esac
 TARGETS="$( $NI get | $JQ -r 'try .targets | if type == "string" then . else join(",") end' )"
 [ -n "${TARGETS}" ] && BOLT_ARGS+=( "--targets=${TARGETS}" )
 
-echo "Running command: $BOLT ${BOLT_TYPE} run ${BOLT_NAME} ${BOLT_ARGS[@]}"
+echo "Running command: $BOLT ${BOLT_TYPE} ${BOLT_RUN} ${BOLT_NAME} ${BOLT_ARGS[@]}"
 
 # Run Bolt!
-BOLT_OUTPUT=$($BOLT "${BOLT_TYPE}" run "${BOLT_NAME}" "${BOLT_ARGS[@]}")
+case $BOLT_TYPE in
+command|script|plan|task)
+  BOLT_OUTPUT=$($BOLT "${BOLT_TYPE}" run "${BOLT_NAME}" "${BOLT_ARGS[@]}")
+  ;;
+apply)
+  BOLT_OUTPUT=$($BOLT "${BOLT_TYPE}" "${BOLT_NAME}" "${BOLT_ARGS[@]}")
+  ;;
+esac 
 
 # Make the step fail if the Bolt command returns non-zero exit code
 if [[ $? -ne 0 ]]; then

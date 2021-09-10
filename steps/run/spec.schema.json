@@ -6,7 +6,10 @@
       "type": "string",
       "enum": [
         "task",
-        "plan"
+        "plan",
+        "command",
+        "script",
+        "apply"
       ],
       "description": "The type of Bolt action."
     },
