@@ -26,6 +26,7 @@ usage() {
 
 $NI credentials config -d "${WORKDIR}/creds"
 
+BOLT_DEFAULTS='{}'
 declare -a BOLT_ARGS
 
 BOLT_TYPE="$( $NI get -p '{ .type }' )"
@@ -106,6 +107,9 @@ ssh)
 
   TRANSPORT_VERIFY_HOST="$( $NI get -p '{ .transport.verifyHost }' )"
   [[ "${TRANSPORT_VERIFY_HOST}" == "false" ]] && BOLT_ARGS+=( --no-host-key-check )
+
+  TRANSPORT_PROXY_JUMP="$( $NI get -p '{ .transport.proxyJump }' )"
+  [ -n "${TRANSPORT_PROXY_JUMP}" ] && BOLT_DEFAULTS="$( $JQ --arg value "${TRANSPORT_PROXY_JUMP}" '."inventory-config".ssh.proxyjump = $value' <<<"${BOLT_DEFAULTS}" )"
   ;;
 winrm)
   TRANSPORT_USE_SSL="$( $NI get -p '{ .transport.useSSL }' )"
@@ -126,6 +130,10 @@ TARGETS="$( $NI get | $JQ -r 'try .targets | if type == "string" then . else joi
 [ -n "${TARGETS}" ] && BOLT_ARGS+=( "--targets=${TARGETS}" )
 
 echo "Running command: $BOLT ${BOLT_TYPE} run ${BOLT_NAME} ${BOLT_ARGS[@]}"
+
+# Set up defaults.
+mkdir -p /etc/puppetlabs/bolt
+cat >/etc/puppetlabs/bolt/bolt-defaults.yaml <<<"${BOLT_DEFAULTS}"
 
 # Run Bolt!
 BOLT_OUTPUT=$($BOLT "${BOLT_TYPE}" run "${BOLT_NAME}" "${BOLT_ARGS[@]}")

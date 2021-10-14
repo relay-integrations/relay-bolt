@@ -73,6 +73,10 @@
           "type": "boolean",
           "description": "Whether to verify host integrity when connecting to remote nodes.",
           "default": true
+        },
+        "proxyJump": {
+          "type": "string",
+          "description": "If using the SSH transport, a hostname or user@hostname to use as a bastion when connecting to nodes."
         }
       }
     },
