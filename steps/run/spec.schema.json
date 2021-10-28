@@ -12,16 +12,16 @@
     },
     "name": {
       "type": "string",
-      "description": "The name of the Bolt task to plan to run."
+      "description": "The name of the Bolt task or plan to run."
     },
     "parameters": {
       "type": "object",
-      "description": "The task- or plan-specific parameter data to use for this run.",
+      "description": "The task or plan parameters to use for this run.",
       "additionalProperties": true
     },
     "projectDir": {
       "type": "string",
-      "description": "The Bolt project directory. When the `git` setting is used, a relative directory may be specified.",
+      "description": "The Bolt project directory.",
       "default": "."
     },
     "modulePaths": {

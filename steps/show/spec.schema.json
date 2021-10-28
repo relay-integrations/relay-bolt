@@ -16,7 +16,7 @@
     },
     "projectDir": {
       "type": "string",
-      "description": "The Bolt project directory. When the `git` setting is used, a relative directory may be specified.",
+      "description": "The Bolt project directory.",
       "default": "."
     },
     "modulePaths": {
