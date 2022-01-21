@@ -1,8 +1,8 @@
 apiVersion: integration/v1
 kind: Step
 name: run
-version: 3
-summary: Runs a Bolt task or plan
+version: 4
+summary: Runs a Bolt task, plan, command, script or apply.
 description: Performs a Bolt run.
 icon:
 build:
